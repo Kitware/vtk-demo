@@ -105,13 +105,13 @@ Each demo with its default options, VTK.wasm (or vtk.js) on WebGL 2 in Chrome:
 | | |
 | --- | --- |
 | `trame.contour`: isosurface of a CT scan, filtered on the server | `trame.galaxy`: millions of points with VTK.wasm 64-bit |
-| ![trame.contour](docs/screenshots/trame-contour.jpg) | ![trame.galaxy](docs/screenshots/trame-galaxy.jpg) |
+| ![trame.contour](https://raw.githubusercontent.com/Kitware/vtk-demo/main/docs/screenshots/trame-contour.jpg) | ![trame.galaxy](https://raw.githubusercontent.com/Kitware/vtk-demo/main/docs/screenshots/trame-galaxy.jpg) |
 | `trame.animation`: wave equation stepped in numpy, streamed live | `trame.glyph`: 43k object voxel island, GPU instancing |
-| ![trame.animation](docs/screenshots/trame-animation.jpg) | ![trame.glyph](docs/screenshots/trame-glyph.jpg) |
+| ![trame.animation](https://raw.githubusercontent.com/Kitware/vtk-demo/main/docs/screenshots/trame-animation.jpg) | ![trame.glyph](https://raw.githubusercontent.com/Kitware/vtk-demo/main/docs/screenshots/trame-glyph.jpg) |
 | `trame.pbr`: PBR materials and image based lighting | `trame.pbr-legacy`: the same scene with vtk.js |
-| ![trame.pbr](docs/screenshots/trame-pbr.jpg) | ![trame.pbr-legacy](docs/screenshots/trame-pbr-legacy.jpg) |
+| ![trame.pbr](https://raw.githubusercontent.com/Kitware/vtk-demo/main/docs/screenshots/trame-pbr.jpg) | ![trame.pbr-legacy](https://raw.githubusercontent.com/Kitware/vtk-demo/main/docs/screenshots/trame-pbr-legacy.jpg) |
 | `trame.transparency`: depth peeling stress test | `export.bunny-html`: self-contained HTML page, no server |
-| ![trame.transparency](docs/screenshots/trame-transparency.jpg) | ![export.bunny-html](docs/screenshots/export-bunny-html.jpg) |
+| ![trame.transparency](https://raw.githubusercontent.com/Kitware/vtk-demo/main/docs/screenshots/trame-transparency.jpg) | ![export.bunny-html](https://raw.githubusercontent.com/Kitware/vtk-demo/main/docs/screenshots/export-bunny-html.jpg) |
 
 ### Notes
 
