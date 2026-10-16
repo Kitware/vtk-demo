@@ -78,6 +78,14 @@ vtk-demo run trame.glyph --webgpu   # WebGPU in the browser and on the server
 vtk-demo run trame.galaxy --help
 ```
 
+Without installing anything, [uv](https://docs.astral.sh/uv/) can run any demo
+against a VTK of your choice, here a nightly from
+[wheels.vtk.org](https://wheels.vtk.org) (`-p 0` picks a free port):
+
+```bash
+uvx --with "vtk>9.7.1" --pre --index-url https://wheels.vtk.org "vtk-demo[trame]" run trame.animation -p 0
+```
+
 Demos are grouped by UI toolkit, under `vtk_demo.apps`:
 
 - **trame**: `contour`, `galaxy`, `animation`, `pbr`,

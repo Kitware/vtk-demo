@@ -111,7 +111,7 @@ class AnimationDemo(TrameApp):
         finally:
             self._task = None
 
-    def _on_client_updated(self, update_id=None):
+    def _on_client_updated(self, update_id=None, **_):
         # The view also emits "updated" once on mount, and late for an update we
         # stopped waiting for: only the one for the latest update counts
         if update_id == self._update_id:
