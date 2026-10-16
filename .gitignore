@@ -1,0 +1,15 @@
+.venv/
+.nox/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+dist/
+build/
+*.egg-info/
+
+# Written by `vtk-demo run export.bunny-html`
+exports/
+
+# Window settings written by Dear ImGui (hello_imgui) demos
+*.ini

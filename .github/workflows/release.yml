@@ -1,0 +1,95 @@
+name: Release
+
+# Manual only: Actions > Release > Run workflow.
+# python-semantic-release computes the next version from the conventional
+# commits since the last tag, updates __version__ and CHANGELOG.md, then
+# commits, tags and creates the GitHub release. The wheel and sdist are
+# attached to that release and published to PyPI.
+on:
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Force a version bump instead of deriving it from commits"
+        type: choice
+        default: auto
+        options: [auto, patch, minor, major]
+      dry_run:
+        description: "Only report the next version, do not release"
+        type: boolean
+        default: false
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    uses: ./.github/workflows/test.yml
+
+  release:
+    needs: test
+    if: github.ref_name == 'main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # push the release commit and tag, create the release
+    outputs:
+      released: ${{ steps.semrel.outputs.released }}
+      tag: ${{ steps.semrel.outputs.tag }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+
+      # Release exactly the commit that was tested
+      - run: git reset --hard ${{ github.sha }}
+
+      - name: Semantic version release
+        id: semrel
+        uses: python-semantic-release/python-semantic-release@v10
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          force: ${{ inputs.force != 'auto' && inputs.force || '' }}
+          no_operation_mode: ${{ inputs.dry_run }}
+          build: false
+          git_committer_name: github-actions
+          git_committer_email: github-actions@users.noreply.github.com
+
+      - uses: astral-sh/setup-uv@v7
+        if: steps.semrel.outputs.released == 'true'
+
+      - name: Build
+        if: steps.semrel.outputs.released == 'true'
+        run: uvx nox -s build
+
+      - name: Attach distributions to the GitHub release
+        if: steps.semrel.outputs.released == 'true'
+        uses: python-semantic-release/publish-action@v10
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ steps.semrel.outputs.tag }}
+
+      - uses: actions/upload-artifact@v4
+        if: steps.semrel.outputs.released == 'true'
+        with:
+          name: dist
+          path: dist/
+
+  pypi:
+    needs: release
+    if: needs.release.outputs.released == 'true'
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/project/vtk-demo/
+    permissions:
+      id-token: write # PyPI trusted publishing
+    steps:
+      - uses: actions/download-artifact@v5
+        with:
+          name: dist
+          path: dist/
+      - uses: pypa/gh-action-pypi-publish@release/v1
