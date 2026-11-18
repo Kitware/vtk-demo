@@ -83,6 +83,7 @@ plotter.show()
 | `scenes.galaxy` | `build_galaxy_scene`: tens of millions of points |
 | `scenes.wave` | `WaveSurface`, `build_wave_scene`: a mesh updated live by a simulation |
 | `scenes.isosurface` | `Isosurface`, `build_isosurface_scene`: live `vtkFlyingEdges3D` contour |
+| `scenes.volume_rendering` | `VolumeRendering`, `build_volume_rendering_scene`: GPU ray cast volume with 3D Slicer's CT presets (`PRESETS`), shift and shading changed live |
 | `scenes.bunny` | `build_bunny_scene` |
 | `scenes.benchmark` | `build_sphere_mesh`, `build_sphere_actors`: synthetic throughput scenes |
 | `scenes.primitives` | Shapes (`cube`, `cylinder`, `cone`, `arrow`, `icosphere`, `super_ellipsoid`, `trefoil`) and textures (`stone_tiles_texture`, `image_texture`) |
@@ -108,8 +109,9 @@ uvx --with "vtk==9.7.20261101.dev0" --index-url https://wheels.vtk.org vtk-demo 
 
 Demos are grouped by UI toolkit, under `vtk_demo.apps`:
 
-- **trame**: `contour`, `live-processing`, `galaxy`, `animation`, `pbr`,
-  `pbr-legacy`, `transparency`, `asteroid-impact`, `bearing-assembly`, `glyph`
+- **trame**: `contour`, `volume-rendering`, `live-processing`, `galaxy`,
+  `animation`, `pbr`, `pbr-legacy`, `transparency`, `asteroid-impact`,
+  `bearing-assembly`, `glyph`
 - **export**: `bunny-html`, a self-contained VTK.wasm HTML page
 - **imgui**: `contour`, the trame contour demo as a native desktop window
 
@@ -117,6 +119,25 @@ Every demo is also a runnable module, e.g. `python -m vtk_demo.apps.trame.glyph`
 
 The SimpleViewer based trame demos report first frame and interaction times:
 see `vtk_demo/apps/trame/observability.py` (`--obs-log`, `--obs-verbose`, `--no-hud`).
+
+### Volume rendering
+
+`trame.volume-rendering` ray casts a chest CT in the browser with VTK.wasm,
+using 3D Slicer's volume rendering presets, as discussed in
+[How show the bone of a serial dicom files](https://discourse.vtk.org/t/how-show-the-bone-of-a-serial-dicom-files/4802).
+The data is 3D Slicer's CTChest sample (`ct-chest-scene` in
+`vtk_demo.data.medical`, 41 MB, downloaded on first run), read straight from
+its scene bundle (`.mrb`) by `vtk_demo.io.nrrd`.
+
+```bash
+vtk-demo run trame.volume-rendering            # VTK.wasm on WebGL 2
+vtk-demo run trame.volume-rendering --webgpu   # WebGPU in the browser
+```
+
+The footer picks a preset (CT-Chest-Contrast-Enhanced, CT-Bone, CT-Muscle…),
+toggles shading and shifts the transfer functions, in Hounsfield units, to
+fine-tune what shows up. The volume is sent to the browser once: these
+controls only send the new volume property.
 
 ### Gallery
 
@@ -135,8 +156,8 @@ or WebGPU for `trame.asteroid-impact` and `trame.bearing-assembly`:
 | ![trame.pbr-legacy](https://raw.githubusercontent.com/Kitware/vtk-demo/main/docs/screenshots/trame-pbr-legacy.jpg) | ![trame.transparency](https://raw.githubusercontent.com/Kitware/vtk-demo/main/docs/screenshots/trame-transparency.jpg) |
 | `trame.asteroid-impact`: WebGL weighted blend vs. WebGPU deep framebuffer | `trame.bearing-assembly`: the same comparison, as a WebGL / WebGPU toggle |
 | ![trame.asteroid-impact](https://raw.githubusercontent.com/Kitware/vtk-demo/main/docs/screenshots/trame-asteroid-impact.jpg) | ![trame.bearing-assembly](https://raw.githubusercontent.com/Kitware/vtk-demo/main/docs/screenshots/trame-bearing-assembly.jpg) |
-| `export.bunny-html`: self-contained HTML page, no server |  |
-| ![export.bunny-html](https://raw.githubusercontent.com/Kitware/vtk-demo/main/docs/screenshots/export-bunny-html.jpg) |  |
+| `trame.volume-rendering`: chest CT ray cast with 3D Slicer presets | `export.bunny-html`: self-contained HTML page, no server |
+| ![trame.volume-rendering](https://raw.githubusercontent.com/Kitware/vtk-demo/main/docs/screenshots/trame-volume-rendering.jpg) | ![export.bunny-html](https://raw.githubusercontent.com/Kitware/vtk-demo/main/docs/screenshots/export-bunny-html.jpg) |
 
 ### Notes
 

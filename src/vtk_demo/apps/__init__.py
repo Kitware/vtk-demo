@@ -37,6 +37,12 @@ DEMOS = [
     ),
     Demo(
         "trame",
+        "volume-rendering",
+        "vtk_demo.apps.trame.volume_rendering",
+        "Chest CT volume rendering with 3D Slicer presets, ray cast by VTK.wasm",
+    ),
+    Demo(
+        "trame",
         "live-processing",
         "vtk_demo.apps.trame.live_processing",
         "Threshold of an FEA bracket by stress range, filtered on the server, rendered by VTK.wasm",

@@ -54,3 +54,23 @@ def deep_transparency(path: str, sha256: str, size: int, folder: str):
         fname=f"deep-transparency/{folder}/{PurePosixPath(path).name}",
         size=size,
     )
+
+
+SLICER_DATA_STORE = "https://github.com/Slicer/SlicerDataStore/releases/tag/SHA256"
+SLICER_DATA_STORE_URL = (
+    "https://github.com/Slicer/SlicerDataStore/releases/download/SHA256"
+)
+
+
+def slicer(file_name: str, sha256: str, size: int):
+    """A file of the SlicerDataStore SHA256 release, cached in ``slicer/<file_name>``.
+
+    Release assets are named after their sha256, so ``file_name`` (with its
+    extension) is the name the file had when uploaded.
+    """
+    return RemoteLocation(
+        url=f"{SLICER_DATA_STORE_URL}/{sha256}",
+        known_hash=f"sha256:{sha256}",
+        fname=f"slicer/{file_name}",
+        size=size,
+    )
