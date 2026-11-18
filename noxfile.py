@@ -62,6 +62,14 @@ def build(session: nox.Session) -> None:
     # --no-config: resolve like a user would, without the [tool.uv] constraints
     session.install("--no-config", wheel)
     session.run("vtk-demo", "list")
+    # Package data: the color presets JSON. -I keeps src/ off sys.path, so this
+    # reads the installed wheel
+    session.run(
+        "python",
+        "-I",
+        "-c",
+        "from vtk_demo import lut; assert len(lut.list_presets()) > 100",
+    )
 
 
 if __name__ == "__main__":

@@ -37,6 +37,12 @@ DEMOS = [
     ),
     Demo(
         "trame",
+        "live-processing",
+        "vtk_demo.apps.trame.live_processing",
+        "Threshold of an FEA bracket by stress range, filtered on the server, rendered by VTK.wasm",
+    ),
+    Demo(
+        "trame",
         "galaxy",
         "vtk_demo.apps.trame.galaxy",
         "Tens of millions of points with VTK.wasm 64-bit (wasm64) + WebGPU",
@@ -64,6 +70,12 @@ DEMOS = [
         "transparency",
         "vtk_demo.apps.trame.transparency",
         "Nested translucent shells, glass and bubbles: depth peeling stress test",
+    ),
+    Demo(
+        "trame",
+        "asteroid-impact",
+        "vtk_demo.apps.trame.asteroid_impact",
+        "Asteroid ocean impact, side by side in VTK.wasm: WebGL weighted blend vs. WebGPU deep framebuffer",
     ),
     Demo(
         "trame",

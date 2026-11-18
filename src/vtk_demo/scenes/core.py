@@ -14,10 +14,9 @@ Two PyVista quirks to keep in mind, as the scenes also run in PyVista apps:
 """
 
 import numpy as np
-from matplotlib import colormaps
 from matplotlib.colors import to_rgb
 from vtkmodules.util.numpy_support import numpy_to_vtk
-from vtkmodules.vtkCommonCore import vtkDataArray, vtkLookupTable, vtkPoints
+from vtkmodules.vtkCommonCore import vtkDataArray, vtkPoints
 from vtkmodules.vtkCommonDataModel import vtkCellArray, vtkPolyData
 from vtkmodules.vtkCommonExecutionModel import vtkAlgorithm
 from vtkmodules.vtkCommonTransforms import vtkTransform
@@ -33,6 +32,8 @@ from vtkmodules.vtkRenderingCore import (
     vtkProperty,
 )
 
+from vtk_demo import lut
+
 # Colors ---------------------------------------------------------------------
 
 
@@ -47,11 +48,8 @@ def rgb(value):
 
 
 def lookup_table(cmap, clim, n_colors=256):
-    """``vtkLookupTable`` sampling the matplotlib colormap ``cmap`` over ``clim``."""
-    table = vtkLookupTable(number_of_table_values=n_colors, table_range=clim)
-    for i, value in enumerate(colormaps[cmap](np.linspace(0, 1, n_colors))):
-        table.SetTableValue(i, *value)
-    return table
+    """``vtkLookupTable`` of ``cmap`` over ``clim``, see :mod:`vtk_demo.lut`."""
+    return lut.lookup_table(cmap, clim, n_colors)
 
 
 # Arrays and meshes ----------------------------------------------------------

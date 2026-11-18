@@ -29,6 +29,7 @@ dependencies = [
   "matplotlib",
   "pyvista>=0.48",
   "vtk>=9.5",
+  "pooch>=1.9.0",
 ]
 
 [project.urls]
@@ -72,8 +73,9 @@ include = ["src/vtk_demo", "tests", "README.md", "CONTRIBUTING.md", "LICENSE"]
 
 [tool.uv]
 # VTK nightly: with 9.7.1, VTK.wasm does not mark updated arrays as modified, so
-# the browser keeps drawing the first frame of trame.animation
-constraint-dependencies = ["vtk==9.7.20260913.dev0"]
+# the browser keeps drawing the first frame of trame.animation. 2026-10-11 and
+# later also have the deep framebuffer transparency of WebGPU (trame.asteroid-impact)
+constraint-dependencies = ["vtk==9.7.20261101.dev0"]
 
 [tool.uv.sources]
 vtk = { index = "vtk" }

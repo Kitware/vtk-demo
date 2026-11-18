@@ -1,16 +1,16 @@
 version = 1
-revision = 3
+revision = 5
 requires-python = ">=3.10"
 resolution-markers = [
-    "python_full_version == '3.13.*'",
     "python_full_version >= '3.15'",
+    "python_full_version == '3.13.*'",
     "python_full_version == '3.12.*' or python_full_version == '3.14.*'",
     "python_full_version == '3.11.*'",
     "python_full_version < '3.11'",
 ]
 
 [manifest]
-constraints = [{ name = "vtk", specifier = "==9.7.20260913.dev0", index = "https://wheels.vtk.org/" }]
+constraints = [{ name = "vtk", specifier = "==9.7.20261101.dev0", index = "https://wheels.vtk.org/" }]
 
 [[package]]
 name = "aiohappyeyeballs"
@@ -441,7 +441,7 @@ resolution-markers = [
     "python_full_version < '3.11'",
 ]
 dependencies = [
-    { name = "numpy", version = "2.2.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
+    { name = "numpy", version = "2.2.6", source = { registry = "https://pypi.org/simple" } },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/66/54/eb9bfc647b19f2009dd5c7f5ec51c4e6ca831725f1aea7a993034f483147/contourpy-1.3.2.tar.gz", hash = "sha256:b6945942715a034c671b7fc54f9588126b0b8bf23db2696e3ca8328f3ff0ab54", size = 13466130, upload-time = "2025-04-15T17:47:53.79Z" }
 wheels = [
@@ -511,7 +511,7 @@ resolution-markers = [
     "python_full_version == '3.11.*'",
 ]
 dependencies = [
-    { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.11.*'" },
+    { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.org/simple" } },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/58/01/1253e6698a07380cd31a736d248a3f2a50a7c88779a1813da27503cadc2a/contourpy-1.3.3.tar.gz", hash = "sha256:083e12155b210502d0bca491432bb04d56dc3432f95a979b429f2848c3dbe880", size = 13466174, upload-time = "2025-07-26T12:03:12.549Z" }
 wheels = [
@@ -593,12 +593,12 @@ name = "contourpy"
 version = "1.4.0"
 source = { registry = "https://pypi.org/simple" }
 resolution-markers = [
-    "python_full_version == '3.13.*'",
     "python_full_version >= '3.15'",
+    "python_full_version == '3.13.*'",
     "python_full_version == '3.12.*' or python_full_version == '3.14.*'",
 ]
 dependencies = [
-    { name = "numpy", version = "2.5.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
+    { name = "numpy", version = "2.5.4", source = { registry = "https://pypi.org/simple" } },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/83/5a/a55177dd22553a277388e8a1b3220e92de91bacb28356cdc73caa240121d/contourpy-1.4.0.tar.gz", hash = "sha256:20156f5a1ac4f8ce02656e39a61e82164a3d359796dc8026f75b062783d500e1", size = 13323726, upload-time = "2026-09-11T19:05:05.808Z" }
 wheels = [
@@ -690,12 +690,12 @@ resolution-markers = [
     "python_full_version < '3.11'",
 ]
 dependencies = [
-    { name = "attrs", marker = "python_full_version < '3.11'" },
-    { name = "docstring-parser", marker = "python_full_version < '3.11'" },
-    { name = "rich", marker = "python_full_version < '3.11'" },
-    { name = "rich-rst", marker = "python_full_version < '3.11'" },
-    { name = "tomli", marker = "python_full_version < '3.11'" },
-    { name = "typing-extensions", marker = "python_full_version < '3.11'" },
+    { name = "attrs" },
+    { name = "docstring-parser" },
+    { name = "rich" },
+    { name = "rich-rst" },
+    { name = "tomli" },
+    { name = "typing-extensions" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/c1/08/a444f3cca86cb27bc256831fc8c42b578390f4087bf6631cccb5334bd9ed/cyclopts-4.25.3.tar.gz", hash = "sha256:7d3a067bc7699a1a65fe2ea0b092a925855bb711a05adc1e65c5b9ba307acea4", size = 202814, upload-time = "2026-09-17T16:25:16.892Z" }
 wheels = [
@@ -707,16 +707,16 @@ name = "cyclopts"
 version = "5.2.0"
 source = { registry = "https://pypi.org/simple" }
 resolution-markers = [
-    "python_full_version == '3.13.*'",
     "python_full_version >= '3.15'",
+    "python_full_version == '3.13.*'",
     "python_full_version == '3.12.*' or python_full_version == '3.14.*'",
     "python_full_version == '3.11.*'",
 ]
 dependencies = [
-    { name = "attrs", marker = "python_full_version >= '3.11'" },
-    { name = "docstring-parser", marker = "python_full_version >= '3.11'" },
-    { name = "rich", marker = "python_full_version >= '3.11'" },
-    { name = "rich-rst", marker = "python_full_version >= '3.11'" },
+    { name = "attrs" },
+    { name = "docstring-parser" },
+    { name = "rich" },
+    { name = "rich-rst" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/28/c1/3debeeb6e0eb74a51d6f8cf1f273ed7c479e3321631cbf89fb9700e65e28/cyclopts-5.2.0.tar.gz", hash = "sha256:b63c1b1beaadf3ead19214385a0f90b990f152c4107c174e1724c45dc71e9541", size = 246542, upload-time = "2026-10-06T15:02:39.212Z" }
 wheels = [
@@ -759,7 +759,7 @@ name = "exceptiongroup"
 version = "1.3.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "typing-extensions", marker = "python_full_version < '3.11'" },
+    { name = "typing-extensions" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/50/79/66800aadf48771f6b62f7eb014e352e5d06856655206165d775e675a02c9/exceptiongroup-1.3.1.tar.gz", hash = "sha256:8b412432c6055b0b7d14c310000ae93352ed6754f70fa8f7c34141f91c4e3219", size = 30371, upload-time = "2025-11-21T23:01:54.787Z" }
 wheels = [
@@ -783,8 +783,8 @@ name = "filelock"
 version = "4.2.0"
 source = { registry = "https://pypi.org/simple" }
 resolution-markers = [
-    "python_full_version == '3.13.*'",
     "python_full_version >= '3.15'",
+    "python_full_version == '3.13.*'",
     "python_full_version == '3.12.*' or python_full_version == '3.14.*'",
     "python_full_version == '3.11.*'",
 ]
@@ -874,8 +874,8 @@ name = "fonttools"
 version = "4.67.0"
 source = { registry = "https://pypi.org/simple" }
 resolution-markers = [
-    "python_full_version == '3.13.*'",
     "python_full_version >= '3.15'",
+    "python_full_version == '3.13.*'",
     "python_full_version == '3.12.*' or python_full_version == '3.14.*'",
     "python_full_version == '3.11.*'",
 ]
@@ -1306,15 +1306,15 @@ resolution-markers = [
     "python_full_version < '3.11'",
 ]
 dependencies = [
-    { name = "contourpy", version = "1.3.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
-    { name = "cycler", marker = "python_full_version < '3.11'" },
-    { name = "fonttools", version = "4.65.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
-    { name = "kiwisolver", marker = "python_full_version < '3.11'" },
-    { name = "numpy", version = "2.2.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
-    { name = "packaging", marker = "python_full_version < '3.11'" },
-    { name = "pillow", marker = "python_full_version < '3.11'" },
-    { name = "pyparsing", marker = "python_full_version < '3.11'" },
-    { name = "python-dateutil", marker = "python_full_version < '3.11'" },
+    { name = "contourpy", version = "1.3.2", source = { registry = "https://pypi.org/simple" } },
+    { name = "cycler" },
+    { name = "fonttools", version = "4.65.0", source = { registry = "https://pypi.org/simple" } },
+    { name = "kiwisolver" },
+    { name = "numpy", version = "2.2.6", source = { registry = "https://pypi.org/simple" } },
+    { name = "packaging" },
+    { name = "pillow" },
+    { name = "pyparsing" },
+    { name = "python-dateutil" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/63/1b/4be5be87d43d327a0cf4de1a56e86f7f84c89312452406cf122efe2839e6/matplotlib-3.10.9.tar.gz", hash = "sha256:fd66508e8c6877d98e586654b608a0456db8d7e8a546eb1e2600efd957302358", size = 34811233, upload-time = "2026-04-24T00:14:13.539Z" }
 wheels = [
@@ -1379,23 +1379,23 @@ name = "matplotlib"
 version = "3.11.2"
 source = { registry = "https://pypi.org/simple" }
 resolution-markers = [
-    "python_full_version == '3.13.*'",
     "python_full_version >= '3.15'",
+    "python_full_version == '3.13.*'",
     "python_full_version == '3.12.*' or python_full_version == '3.14.*'",
     "python_full_version == '3.11.*'",
 ]
 dependencies = [
-    { name = "contourpy", version = "1.3.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.11.*'" },
+    { name = "contourpy", version = "1.3.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
     { name = "contourpy", version = "1.4.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
-    { name = "cycler", marker = "python_full_version >= '3.11'" },
-    { name = "fonttools", version = "4.67.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
-    { name = "kiwisolver", marker = "python_full_version >= '3.11'" },
-    { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.11.*'" },
+    { name = "cycler" },
+    { name = "fonttools", version = "4.67.0", source = { registry = "https://pypi.org/simple" } },
+    { name = "kiwisolver" },
+    { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
     { name = "numpy", version = "2.5.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
-    { name = "packaging", marker = "python_full_version >= '3.11'" },
-    { name = "pillow", marker = "python_full_version >= '3.11'" },
-    { name = "pyparsing", marker = "python_full_version >= '3.11'" },
-    { name = "python-dateutil", marker = "python_full_version >= '3.11'" },
+    { name = "packaging" },
+    { name = "pillow" },
+    { name = "pyparsing" },
+    { name = "python-dateutil" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/e7/c8/9aa712a0afb882649424dd8de8ad9aa6235e796e84c6052e8f6dc1598d0d/matplotlib-3.11.2.tar.gz", hash = "sha256:cec596316640f2b394b8f0daa0ea61a8eae82d017b620b9f202befb972a59ea4", size = 32660610, upload-time = "2026-09-11T19:05:31.214Z" }
 wheels = [
@@ -1479,8 +1479,8 @@ name = "more-itertools"
 version = "11.2.1"
 source = { registry = "https://pypi.org/simple" }
 resolution-markers = [
-    "python_full_version == '3.13.*'",
     "python_full_version >= '3.15'",
+    "python_full_version == '3.13.*'",
     "python_full_version == '3.12.*' or python_full_version == '3.14.*'",
     "python_full_version == '3.11.*'",
 ]
@@ -1947,8 +1947,8 @@ name = "numpy"
 version = "2.5.4"
 source = { registry = "https://pypi.org/simple" }
 resolution-markers = [
-    "python_full_version == '3.13.*'",
     "python_full_version >= '3.15'",
+    "python_full_version == '3.13.*'",
     "python_full_version == '3.12.*' or python_full_version == '3.14.*'",
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/95/b0/c7453d0b6e2073c3264468b106ee1563750cecc910965e67357e3698c83e/numpy-2.5.4.tar.gz", hash = "sha256:9a94cf751c9ad8ebaa835bcd3d40dacf8534ad086b88c38029b65123c7999d2a", size = 20866315, upload-time = "2026-10-10T20:05:31.422Z" }
@@ -2140,8 +2140,8 @@ name = "platformdirs"
 version = "4.13.1"
 source = { registry = "https://pypi.org/simple" }
 resolution-markers = [
-    "python_full_version == '3.13.*'",
     "python_full_version >= '3.15'",
+    "python_full_version == '3.13.*'",
     "python_full_version == '3.12.*' or python_full_version == '3.14.*'",
     "python_full_version == '3.11.*'",
 ]
@@ -2894,34 +2894,41 @@ wheels = [
 
 [[package]]
 name = "vtk"
-version = "9.7.20260913.dev0"
+version = "9.7.20261101.dev0"
 source = { registry = "https://wheels.vtk.org/" }
 dependencies = [
     { name = "matplotlib", version = "3.10.9", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
     { name = "matplotlib", version = "3.11.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
 ]
 wheels = [
-    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/2a804383b232f60a522506db5d52d10bbd8b35a96a9028d5b6ea516a736b523e/vtk-9.7.20260913.dev0-cp310-cp310-macosx_10_15_x86_64.whl", hash = "sha256:2a804383b232f60a522506db5d52d10bbd8b35a96a9028d5b6ea516a736b523e" },
-    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/2ecc54de66fc13e8f5733662041fc8d66d5815a9e6e7680fa053bbbf451743af/vtk-9.7.20260913.dev0-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:2ecc54de66fc13e8f5733662041fc8d66d5815a9e6e7680fa053bbbf451743af" },
-    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/e23c3d8c5c7a26e4ef442d314d21f7085a7ad50153209f65cff0a0dd402c84a6/vtk-9.7.20260913.dev0-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:e23c3d8c5c7a26e4ef442d314d21f7085a7ad50153209f65cff0a0dd402c84a6" },
-    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/ce9df9d39eb60ceb139464288eac88441deceff65d32244773afb5a7c5713d99/vtk-9.7.20260913.dev0-cp310-cp310-manylinux_2_28_aarch64.whl", hash = "sha256:ce9df9d39eb60ceb139464288eac88441deceff65d32244773afb5a7c5713d99" },
-    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/964a7b9a12dfa825ccbd3f4694f2184b738ed39112535c50c805a179645338b1/vtk-9.7.20260913.dev0-cp311-cp311-macosx_10_15_x86_64.whl", hash = "sha256:964a7b9a12dfa825ccbd3f4694f2184b738ed39112535c50c805a179645338b1" },
-    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/60309ce89f9c030463f0b58075d4a0b43e1bd3c26ba20132f4a9420db6c1808b/vtk-9.7.20260913.dev0-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:60309ce89f9c030463f0b58075d4a0b43e1bd3c26ba20132f4a9420db6c1808b" },
-    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/497962ddb790c8fc124eeb3ce3b3d916bb0a2f5b601249c01158eecfd6eb3cda/vtk-9.7.20260913.dev0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:497962ddb790c8fc124eeb3ce3b3d916bb0a2f5b601249c01158eecfd6eb3cda" },
-    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/27e7a05aac281ae9bedea1e1c3db5e941427d3fcd67dbe9a2f527e6a30654945/vtk-9.7.20260913.dev0-cp311-cp311-manylinux_2_28_aarch64.whl", hash = "sha256:27e7a05aac281ae9bedea1e1c3db5e941427d3fcd67dbe9a2f527e6a30654945" },
-    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/3d23c5c3287a291a0eb4a835f2ea5d0766f24f7056b2fcb55c58f3c52b0efa57/vtk-9.7.20260913.dev0-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:3d23c5c3287a291a0eb4a835f2ea5d0766f24f7056b2fcb55c58f3c52b0efa57" },
-    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/8b9afdd726d57423dfc1b1512fe36832b72d5a89830f2c887db5fd22b41bd2fc/vtk-9.7.20260913.dev0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:8b9afdd726d57423dfc1b1512fe36832b72d5a89830f2c887db5fd22b41bd2fc" },
-    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/cd60848e5cee9463e8d91f9dbb5bf19dbaf9213602ab10ab6b8ff7bf6ea86d45/vtk-9.7.20260913.dev0-cp312-cp312-manylinux_2_28_aarch64.whl", hash = "sha256:cd60848e5cee9463e8d91f9dbb5bf19dbaf9213602ab10ab6b8ff7bf6ea86d45" },
-    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/4e9e5f3f4a555ca73dcf3ee1b4e4d140a7dcf5a736f0f43c69c11f9439c7f0a0/vtk-9.7.20260913.dev0-cp312-cp312-win_amd64.whl", hash = "sha256:4e9e5f3f4a555ca73dcf3ee1b4e4d140a7dcf5a736f0f43c69c11f9439c7f0a0" },
-    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/957a147c40537911afd230fc876266174d3ff460413227c5fa6412dd93e83322/vtk-9.7.20260913.dev0-cp313-cp313-macosx_10_15_x86_64.whl", hash = "sha256:957a147c40537911afd230fc876266174d3ff460413227c5fa6412dd93e83322" },
-    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/17a61f7c523fad4cf2af2c58615f4cc839ea7bd1de37cbeb13746a320e4e2a5e/vtk-9.7.20260913.dev0-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:17a61f7c523fad4cf2af2c58615f4cc839ea7bd1de37cbeb13746a320e4e2a5e" },
-    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/23b4cd9e3028f8df5b381fe835ad3494db8c6ff431139b51675f71a6663cc6e5/vtk-9.7.20260913.dev0-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:23b4cd9e3028f8df5b381fe835ad3494db8c6ff431139b51675f71a6663cc6e5" },
-    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/84c309555a30b7feea1f694f5c9f4729bb2cd855bfa0a3faeeb80d81b437fa58/vtk-9.7.20260913.dev0-cp313-cp313-manylinux_2_28_aarch64.whl", hash = "sha256:84c309555a30b7feea1f694f5c9f4729bb2cd855bfa0a3faeeb80d81b437fa58" },
-    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/0982e2e4209eef8e7085782e7e525b10a46ad10b46445e4ffd09711d9148548b/vtk-9.7.20260913.dev0-cp314-cp314-macosx_11_0_arm64.whl", hash = "sha256:0982e2e4209eef8e7085782e7e525b10a46ad10b46445e4ffd09711d9148548b" },
-    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/eb62752a3337386a67129fe5404aba7727d5ca89d5d4ce896b0e2e218e848c85/vtk-9.7.20260913.dev0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:eb62752a3337386a67129fe5404aba7727d5ca89d5d4ce896b0e2e218e848c85" },
-    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/3eb6db36b920b63eb99672862919d85f5108b31628f1d942dfe6b990cba9e688/vtk-9.7.20260913.dev0-cp314-cp314-manylinux_2_28_aarch64.whl", hash = "sha256:3eb6db36b920b63eb99672862919d85f5108b31628f1d942dfe6b990cba9e688" },
-    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/8a3b59701961b8dd98ee6ed06175abf11699afcd2916bf85078dfe6111114c12/vtk-9.7.20260913.dev0-cp314-cp314t-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:8a3b59701961b8dd98ee6ed06175abf11699afcd2916bf85078dfe6111114c12" },
-    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/67add874169722239866e7c269418347ae77eba6acd2f85cf38d42813f33a267/vtk-9.7.20260913.dev0-cp314-cp314t-manylinux_2_28_aarch64.whl", hash = "sha256:67add874169722239866e7c269418347ae77eba6acd2f85cf38d42813f33a267" },
+    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/841a471796f1e597528fda68fc15fc20ed5096476166099a6c28da8b440c2ffa/vtk-9.7.20261101.dev0-cp310-cp310-macosx_10_15_x86_64.whl", hash = "sha256:841a471796f1e597528fda68fc15fc20ed5096476166099a6c28da8b440c2ffa" },
+    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/a190ed49adeab4fa58e4ea1a01cb0f659e3f381d0b51d86e28dbfc53d144e279/vtk-9.7.20261101.dev0-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:a190ed49adeab4fa58e4ea1a01cb0f659e3f381d0b51d86e28dbfc53d144e279" },
+    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/3c7ca33db7bbf03b4337964920b4c57509330384218d091300488099d91d8bf2/vtk-9.7.20261101.dev0-cp310-cp310-manylinux_2_28_aarch64.whl", hash = "sha256:3c7ca33db7bbf03b4337964920b4c57509330384218d091300488099d91d8bf2" },
+    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/249e503d4144f2f1a43e530b5a7d8252701230486228940cb742986fc478d1ff/vtk-9.7.20261101.dev0-cp310-cp310-manylinux_2_28_x86_64.whl", hash = "sha256:249e503d4144f2f1a43e530b5a7d8252701230486228940cb742986fc478d1ff" },
+    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/efff627eadf238ca5e6972e05cb304a820b1f8bd549ef910bff82dc2b65fbe8e/vtk-9.7.20261101.dev0-cp310-cp310-win_amd64.whl", hash = "sha256:efff627eadf238ca5e6972e05cb304a820b1f8bd549ef910bff82dc2b65fbe8e" },
+    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/2a0a504180fac03fc7c9f417e8aedd5dcaa5ccac52f609afab9825e5a5189c64/vtk-9.7.20261101.dev0-cp311-cp311-macosx_10_15_x86_64.whl", hash = "sha256:2a0a504180fac03fc7c9f417e8aedd5dcaa5ccac52f609afab9825e5a5189c64" },
+    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/d7e58cce61c00e920113ea1bf2bb4cb6d4324f756bbded80b9c76c1860d12e56/vtk-9.7.20261101.dev0-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:d7e58cce61c00e920113ea1bf2bb4cb6d4324f756bbded80b9c76c1860d12e56" },
+    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/4cd4b1062ecfc510c352287458306212ee66476ba23b5a2b16a18b5912af0f96/vtk-9.7.20261101.dev0-cp311-cp311-manylinux_2_28_aarch64.whl", hash = "sha256:4cd4b1062ecfc510c352287458306212ee66476ba23b5a2b16a18b5912af0f96" },
+    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/0fb3b3f8f290b576decdab0a5af8e7e473a8f9eda73103f657db8aba08f5823f/vtk-9.7.20261101.dev0-cp311-cp311-manylinux_2_28_x86_64.whl", hash = "sha256:0fb3b3f8f290b576decdab0a5af8e7e473a8f9eda73103f657db8aba08f5823f" },
+    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/f4c3543bdabadd27b4faa859baba7a8f81b561babcc5534ed7709bf24db2fb12/vtk-9.7.20261101.dev0-cp311-cp311-win_amd64.whl", hash = "sha256:f4c3543bdabadd27b4faa859baba7a8f81b561babcc5534ed7709bf24db2fb12" },
+    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/25ba3d67727166339b332737e5755406906de9525eacc115881776c72a040b89/vtk-9.7.20261101.dev0-cp312-cp312-macosx_10_15_x86_64.whl", hash = "sha256:25ba3d67727166339b332737e5755406906de9525eacc115881776c72a040b89" },
+    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/59ced0197090876dac3494eac567e88d4b11a8b4f3472f1f02b0cb09bf137653/vtk-9.7.20261101.dev0-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:59ced0197090876dac3494eac567e88d4b11a8b4f3472f1f02b0cb09bf137653" },
+    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/1bc822ddb6a496cac83987de09c7e14144b9e4db031c056e483dd9450be55df2/vtk-9.7.20261101.dev0-cp312-cp312-manylinux_2_28_aarch64.whl", hash = "sha256:1bc822ddb6a496cac83987de09c7e14144b9e4db031c056e483dd9450be55df2" },
+    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/3eb4db7d63d353f5bfb50b63b10bd270d0d624c27f002b580b9fd1e96c5bae85/vtk-9.7.20261101.dev0-cp312-cp312-manylinux_2_28_x86_64.whl", hash = "sha256:3eb4db7d63d353f5bfb50b63b10bd270d0d624c27f002b580b9fd1e96c5bae85" },
+    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/583b11a36a2b1637a9106ea251a33658fce63f34e4b3c3f421963250800fa068/vtk-9.7.20261101.dev0-cp313-cp313-macosx_10_15_x86_64.whl", hash = "sha256:583b11a36a2b1637a9106ea251a33658fce63f34e4b3c3f421963250800fa068" },
+    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/cfc3cf903c10050a9b47794a31de04a66926c2d70577df9c1cd85051d2d596de/vtk-9.7.20261101.dev0-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:cfc3cf903c10050a9b47794a31de04a66926c2d70577df9c1cd85051d2d596de" },
+    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/c8b7e2fb2b3492d5bb234d2087515498c5afc70f0b3e8035037a9f1e098397ff/vtk-9.7.20261101.dev0-cp313-cp313-manylinux_2_28_aarch64.whl", hash = "sha256:c8b7e2fb2b3492d5bb234d2087515498c5afc70f0b3e8035037a9f1e098397ff" },
+    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/751ad038d778939e656a499a49ba5df8f637253a8d03bea35fc09f485c335592/vtk-9.7.20261101.dev0-cp313-cp313-manylinux_2_28_x86_64.whl", hash = "sha256:751ad038d778939e656a499a49ba5df8f637253a8d03bea35fc09f485c335592" },
+    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/7ad12584b7d1d88f9a418a14f9c4bac113ff9205b854a7dbf600c5395fd5d45c/vtk-9.7.20261101.dev0-cp313-cp313-win_amd64.whl", hash = "sha256:7ad12584b7d1d88f9a418a14f9c4bac113ff9205b854a7dbf600c5395fd5d45c" },
+    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/17806c24c1a58fbce4db4ad8cda340d2fcf1962102e45c3e7473245ddb59928b/vtk-9.7.20261101.dev0-cp314-cp314-macosx_10_15_x86_64.whl", hash = "sha256:17806c24c1a58fbce4db4ad8cda340d2fcf1962102e45c3e7473245ddb59928b" },
+    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/4e5a9bd70bda3200ec2dd48a5358b9b66706e699340fa6ff8f97ad8e99f56ff3/vtk-9.7.20261101.dev0-cp314-cp314-macosx_11_0_arm64.whl", hash = "sha256:4e5a9bd70bda3200ec2dd48a5358b9b66706e699340fa6ff8f97ad8e99f56ff3" },
+    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/4c69c120e2e7a13ec07493c67a4f8e9c9501d77050c46d2af4fd7db664ed7396/vtk-9.7.20261101.dev0-cp314-cp314-manylinux_2_28_aarch64.whl", hash = "sha256:4c69c120e2e7a13ec07493c67a4f8e9c9501d77050c46d2af4fd7db664ed7396" },
+    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/c839c9fc8a9264cbba1cf09805339b7eef48f3e8b6d8feaeb1772db8003c47f4/vtk-9.7.20261101.dev0-cp314-cp314-manylinux_2_28_x86_64.whl", hash = "sha256:c839c9fc8a9264cbba1cf09805339b7eef48f3e8b6d8feaeb1772db8003c47f4" },
+    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/024c83b0f93dee2b0318eb3ee647c2f90d08446768542b3bb1939925f424e2f2/vtk-9.7.20261101.dev0-cp314-cp314-win_amd64.whl", hash = "sha256:024c83b0f93dee2b0318eb3ee647c2f90d08446768542b3bb1939925f424e2f2" },
+    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/ccf461c200c5c34068be6f8eed2cc4a5fb5c36cc2056a4ef845f8307723c9abe/vtk-9.7.20261101.dev0-cp314-cp314t-macosx_10_15_x86_64.whl", hash = "sha256:ccf461c200c5c34068be6f8eed2cc4a5fb5c36cc2056a4ef845f8307723c9abe" },
+    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/6651ff96a6028f64bbd287ae5e5ccccb80dde9ef8307eb1cf0ccade23451a7b1/vtk-9.7.20261101.dev0-cp314-cp314t-manylinux_2_28_aarch64.whl", hash = "sha256:6651ff96a6028f64bbd287ae5e5ccccb80dde9ef8307eb1cf0ccade23451a7b1" },
+    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/d68bd2348e6769c6178a0dfc77262816a72cc236b057b5f830e72ba746146b23/vtk-9.7.20261101.dev0-cp314-cp314t-manylinux_2_28_x86_64.whl", hash = "sha256:d68bd2348e6769c6178a0dfc77262816a72cc236b057b5f830e72ba746146b23" },
+    { url = "https://gitlab.kitware.com/api/v4/projects/13/packages/pypi/files/23923b615bcbd4e69a7352b47dd09d7f0c898eb8d4809f8221c0bb0294e806a9/vtk-9.7.20261101.dev0-cp314-cp314t-win_amd64.whl", hash = "sha256:23923b615bcbd4e69a7352b47dd09d7f0c898eb8d4809f8221c0bb0294e806a9" },
 ]
 
 [[package]]
@@ -2933,6 +2940,7 @@ dependencies = [
     { name = "numpy", version = "2.2.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
     { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.11.*'" },
     { name = "numpy", version = "2.5.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
+    { name = "pooch" },
     { name = "pyvista" },
     { name = "vtk" },
 ]
@@ -2976,6 +2984,7 @@ requires-dist = [
     { name = "matplotlib" },
     { name = "nox", extras = ["uv"], marker = "extra == 'dev'", specifier = ">=2025.2.9" },
     { name = "numpy" },
+    { name = "pooch", specifier = ">=1.9.0" },
     { name = "pyvista", specifier = ">=0.48" },
     { name = "trame", marker = "extra == 'all'", specifier = ">=3.12" },
     { name = "trame", marker = "extra == 'trame'", specifier = ">=3.12" },
