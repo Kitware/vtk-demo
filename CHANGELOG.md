@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v0.2.0 (2026-11-18)
+
+### Features
+
+- Add data and lut modules, live-processing and asteroid-impact demos
+  ([`fcc80ff`](https://github.com/Kitware/vtk-demo/commit/fcc80ff4aa61c64c0797a95db8c299a818352a15))
+
+
 ## v0.1.1 (2026-10-16)
 
 ### Bug Fixes
