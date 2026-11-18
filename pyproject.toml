@@ -28,8 +28,15 @@ dependencies = [
   "numpy",
   "matplotlib",
   "pyvista>=0.48",
-  "vtk>=9.5",
+  "vtk>=9.7",
   "pooch>=1.9.0",
+  # Web applications (VTK.wasm, vtk.js and server side rendering) and the
+  # standalone HTML export (VTK.wasm bundled in one file)
+  "trame>=3.12",
+  "trame-vuetify",
+  "trame-vtk",
+  "trame-vtklocal>=1.7.2",
+  "trame-pyvista>=0.2.1",
 ]
 
 [project.urls]
@@ -39,16 +46,10 @@ Issues = "https://github.com/Kitware/vtk-demo/issues"
 Changelog = "https://github.com/Kitware/vtk-demo/blob/main/CHANGELOG.md"
 
 [project.optional-dependencies]
-# Web applications (VTK.wasm, vtk.js and server side rendering)
-trame = [
-  "trame>=3.12",
-  "trame-vuetify",
-  "trame-vtk",
-  "trame-vtklocal>=1.7.2",
-  "trame-pyvista>=0.2.1",
-]
-# Standalone HTML export (VTK.wasm bundled in one file)
-export = ["trame-vtklocal>=1.7.2"]
+# trame and export are installed by default: these extras are kept so that
+# `pip install "vtk-demo[trame]"` keeps working
+trame = []
+export = []
 # Native desktop applications with a Dear ImGui UI (no Python 3.10 wheels
 # since imgui-bundle 1.92, and its source build fails)
 imgui = ["imgui-bundle; python_version >= '3.11'"]

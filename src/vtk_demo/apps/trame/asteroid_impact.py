@@ -42,7 +42,7 @@ from vtkmodules.vtkRenderingCore import (
 import vtkmodules.vtkInteractionStyle  # noqa: F401 isort:skip
 import vtkmodules.vtkRenderingOpenGL2  # noqa: F401 isort:skip
 
-from vtk_demo import data
+from vtk_demo import data, vtk_version
 
 DATASET = data.get("asteroid-impact-surfaces")
 SCENE = "impact"  # key of the scene in manifest.json
@@ -92,11 +92,11 @@ class AsteroidImpact(TrameApp):
         ]
         self.state.opacities = [layer["opacity"] for layer in self.scene["actors"]]
         self.state.visibilities = [True] * len(self.actors)
+        # GetBounds() runs the readers: count triangles after it
+        bounds = _union_bounds([actor.GetBounds() for actor in self.actors])
         self.state.n_triangles = sum(
             actor.mapper.input.GetNumberOfPolys() for actor in self.actors
         )
-
-        bounds = _union_bounds([actor.GetBounds() for actor in self.actors])
         mid = [(bounds[2 * i] + bounds[2 * i + 1]) / 2 for i in range(3)]
         radius = math.dist(mid, bounds[1::2])
         center = self.scene.get("cameraFocalPoint", mid)
@@ -335,6 +335,11 @@ def _union_bounds(all_bounds):
 
 
 def main():
+    vtk_version.check(
+        "trame.asteroid-impact",
+        vtk_version.WEBGPU_DEEP_FRAMEBUFFER,
+        "older VTK has no WebGPU deep framebuffer, the WebGPU view is unsorted",
+    )
     AsteroidImpact().server.start()
 
 

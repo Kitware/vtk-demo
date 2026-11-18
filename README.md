@@ -8,10 +8,30 @@ the browser with trame, standalone HTML exports, and Dear ImGui).
 ## Install
 
 ```bash
-pip install vtk-demo              # scenes only (vtk, pyvista)
-pip install "vtk-demo[trame]"     # + web applications
-pip install "vtk-demo[export]"    # + standalone HTML export
+pip install vtk-demo              # scenes, web applications (trame) and HTML export
+pip install "vtk-demo[imgui]"     # + native desktop applications (Dear ImGui)
 pip install "vtk-demo[all]"
+```
+
+This installs the latest VTK release from PyPI, or keeps the VTK already
+installed (9.7 or newer). A few demos need fixes that are only in VTK nightlies
+for now, and warn on startup when VTK is too old:
+
+| Demo | Needs | Without it |
+| --- | --- | --- |
+| `trame.animation` | newer than 9.7.1 | VTK.wasm keeps drawing the first frame |
+| `trame.asteroid-impact`, `trame.bearing-assembly` | nightly of 2026-10-11 or later | the WebGPU view has no sorted (deep framebuffer) transparency |
+
+pip and uv cannot get nightlies from the package metadata: ask for one from
+[wheels.vtk.org](https://wheels.vtk.org) when installing. The demos are tested
+with `9.7.20261101.dev0`:
+
+```bash
+# the tested nightly
+pip install --extra-index-url https://wheels.vtk.org vtk-demo "vtk==9.7.20261101.dev0"
+
+# or the newest nightly (pip picks the highest version across both indexes)
+pip install --pre --extra-index-url https://wheels.vtk.org vtk-demo
 ```
 
 ## Reusable scenes
@@ -83,13 +103,13 @@ against a VTK of your choice, here a nightly from
 [wheels.vtk.org](https://wheels.vtk.org) (`-p 0` picks a free port):
 
 ```bash
-uvx --with "vtk>9.7.1" --pre --index-url https://wheels.vtk.org "vtk-demo[trame]" run trame.animation -p 0
+uvx --with "vtk==9.7.20261101.dev0" --index-url https://wheels.vtk.org vtk-demo run trame.animation -p 0
 ```
 
 Demos are grouped by UI toolkit, under `vtk_demo.apps`:
 
-- **trame**: `contour`, `galaxy`, `animation`, `pbr`,
-  `pbr-legacy`, `transparency`, `glyph`
+- **trame**: `contour`, `live-processing`, `galaxy`, `animation`, `pbr`,
+  `pbr-legacy`, `transparency`, `asteroid-impact`, `bearing-assembly`, `glyph`
 - **export**: `bunny-html`, a self-contained VTK.wasm HTML page
 - **imgui**: `contour`, the trame contour demo as a native desktop window
 
@@ -100,18 +120,23 @@ see `vtk_demo/apps/trame/observability.py` (`--obs-log`, `--obs-verbose`, `--no-
 
 ### Gallery
 
-Each demo with its default options, VTK.wasm (or vtk.js) on WebGL 2 in Chrome:
+Each demo with its default options, VTK.wasm (or vtk.js) on WebGL 2 in Chrome,
+or WebGPU for `trame.asteroid-impact` and `trame.bearing-assembly`:
 
 | | |
 | --- | --- |
-| `trame.contour`: isosurface of a CT scan, filtered on the server | `trame.galaxy`: millions of points with VTK.wasm 64-bit |
-| ![trame.contour](https://raw.githubusercontent.com/Kitware/vtk-demo/main/docs/screenshots/trame-contour.jpg) | ![trame.galaxy](https://raw.githubusercontent.com/Kitware/vtk-demo/main/docs/screenshots/trame-galaxy.jpg) |
-| `trame.animation`: wave equation stepped in numpy, streamed live | `trame.glyph`: 43k object voxel island, GPU instancing |
-| ![trame.animation](https://raw.githubusercontent.com/Kitware/vtk-demo/main/docs/screenshots/trame-animation.jpg) | ![trame.glyph](https://raw.githubusercontent.com/Kitware/vtk-demo/main/docs/screenshots/trame-glyph.jpg) |
-| `trame.pbr`: PBR materials and image based lighting | `trame.pbr-legacy`: the same scene with vtk.js |
-| ![trame.pbr](https://raw.githubusercontent.com/Kitware/vtk-demo/main/docs/screenshots/trame-pbr.jpg) | ![trame.pbr-legacy](https://raw.githubusercontent.com/Kitware/vtk-demo/main/docs/screenshots/trame-pbr-legacy.jpg) |
-| `trame.transparency`: depth peeling stress test | `export.bunny-html`: self-contained HTML page, no server |
-| ![trame.transparency](https://raw.githubusercontent.com/Kitware/vtk-demo/main/docs/screenshots/trame-transparency.jpg) | ![export.bunny-html](https://raw.githubusercontent.com/Kitware/vtk-demo/main/docs/screenshots/export-bunny-html.jpg) |
+| `trame.contour`: isosurface of a CT scan, filtered on the server | `trame.live-processing`: FEA bracket thresholded by stress, filtered on the server |
+| ![trame.contour](https://raw.githubusercontent.com/Kitware/vtk-demo/main/docs/screenshots/trame-contour.jpg) | ![trame.live-processing](https://raw.githubusercontent.com/Kitware/vtk-demo/main/docs/screenshots/trame-live-processing.jpg) |
+| `trame.galaxy`: millions of points with VTK.wasm 64-bit | `trame.animation`: wave equation stepped in numpy, streamed live |
+| ![trame.galaxy](https://raw.githubusercontent.com/Kitware/vtk-demo/main/docs/screenshots/trame-galaxy.jpg) | ![trame.animation](https://raw.githubusercontent.com/Kitware/vtk-demo/main/docs/screenshots/trame-animation.jpg) |
+| `trame.glyph`: 43k object voxel island, GPU instancing | `trame.pbr`: PBR materials and image based lighting |
+| ![trame.glyph](https://raw.githubusercontent.com/Kitware/vtk-demo/main/docs/screenshots/trame-glyph.jpg) | ![trame.pbr](https://raw.githubusercontent.com/Kitware/vtk-demo/main/docs/screenshots/trame-pbr.jpg) |
+| `trame.pbr-legacy`: the same scene with vtk.js | `trame.transparency`: depth peeling stress test |
+| ![trame.pbr-legacy](https://raw.githubusercontent.com/Kitware/vtk-demo/main/docs/screenshots/trame-pbr-legacy.jpg) | ![trame.transparency](https://raw.githubusercontent.com/Kitware/vtk-demo/main/docs/screenshots/trame-transparency.jpg) |
+| `trame.asteroid-impact`: WebGL weighted blend vs. WebGPU deep framebuffer | `trame.bearing-assembly`: the same comparison, as a WebGL / WebGPU toggle |
+| ![trame.asteroid-impact](https://raw.githubusercontent.com/Kitware/vtk-demo/main/docs/screenshots/trame-asteroid-impact.jpg) | ![trame.bearing-assembly](https://raw.githubusercontent.com/Kitware/vtk-demo/main/docs/screenshots/trame-bearing-assembly.jpg) |
+| `export.bunny-html`: self-contained HTML page, no server |  |
+| ![export.bunny-html](https://raw.githubusercontent.com/Kitware/vtk-demo/main/docs/screenshots/export-bunny-html.jpg) |  |
 
 ### Notes
 
@@ -119,11 +144,8 @@ Each demo with its default options, VTK.wasm (or vtk.js) on WebGL 2 in Chrome:
   built with `VTK_ENABLE_WEBGPU=ON`; otherwise the server falls back to OpenGL,
   as shown in the chip when rendering remotely.
 - VTK's WebGPU backend has no PBR shaders yet: `pbr --webgpu` is Phong shaded.
-- The uv setup (`uv sync`, nox, CI) pins a VTK nightly from
-  [wheels.vtk.org](https://wheels.vtk.org) (`[tool.uv]` in `pyproject.toml`):
-  with VTK 9.7.1, VTK.wasm keeps drawing the first frame of `trame.animation`.
-  `pip install vtk-demo` uses the latest VTK release instead; to get a nightly
-  with pip: `pip install --pre --extra-index-url https://wheels.vtk.org "vtk>9.7.1"`.
+- The uv setup (`uv sync`, nox, CI) pins the tested VTK nightly
+  (`[tool.uv]` in `pyproject.toml`), see [Install](#install) to get it with pip.
 
 ## Contributing
 

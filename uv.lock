@@ -2942,33 +2942,23 @@ dependencies = [
     { name = "numpy", version = "2.5.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
     { name = "pooch" },
     { name = "pyvista" },
+    { name = "trame" },
+    { name = "trame-pyvista" },
+    { name = "trame-vtk" },
+    { name = "trame-vtklocal" },
+    { name = "trame-vuetify" },
     { name = "vtk" },
 ]
 
 [package.optional-dependencies]
 all = [
     { name = "imgui-bundle", marker = "python_full_version >= '3.11'" },
-    { name = "trame" },
-    { name = "trame-pyvista" },
-    { name = "trame-vtk" },
-    { name = "trame-vtklocal" },
-    { name = "trame-vuetify" },
 ]
 dev = [
     { name = "nox", extra = ["uv"] },
 ]
-export = [
-    { name = "trame-vtklocal" },
-]
 imgui = [
     { name = "imgui-bundle", marker = "python_full_version >= '3.11'" },
-]
-trame = [
-    { name = "trame" },
-    { name = "trame-pyvista" },
-    { name = "trame-vtk" },
-    { name = "trame-vtklocal" },
-    { name = "trame-vuetify" },
 ]
 
 [package.dev-dependencies]
@@ -2986,18 +2976,12 @@ requires-dist = [
     { name = "numpy" },
     { name = "pooch", specifier = ">=1.9.0" },
     { name = "pyvista", specifier = ">=0.48" },
-    { name = "trame", marker = "extra == 'all'", specifier = ">=3.12" },
-    { name = "trame", marker = "extra == 'trame'", specifier = ">=3.12" },
-    { name = "trame-pyvista", marker = "extra == 'all'", specifier = ">=0.2.1" },
-    { name = "trame-pyvista", marker = "extra == 'trame'", specifier = ">=0.2.1" },
-    { name = "trame-vtk", marker = "extra == 'all'" },
-    { name = "trame-vtk", marker = "extra == 'trame'" },
-    { name = "trame-vtklocal", marker = "extra == 'all'", specifier = ">=1.7.2" },
-    { name = "trame-vtklocal", marker = "extra == 'export'", specifier = ">=1.7.2" },
-    { name = "trame-vtklocal", marker = "extra == 'trame'", specifier = ">=1.7.2" },
-    { name = "trame-vuetify", marker = "extra == 'all'" },
-    { name = "trame-vuetify", marker = "extra == 'trame'" },
-    { name = "vtk", specifier = ">=9.5", index = "https://wheels.vtk.org/" },
+    { name = "trame", specifier = ">=3.12" },
+    { name = "trame-pyvista", specifier = ">=0.2.1" },
+    { name = "trame-vtk" },
+    { name = "trame-vtklocal", specifier = ">=1.7.2" },
+    { name = "trame-vuetify" },
+    { name = "vtk", specifier = ">=9.7", index = "https://wheels.vtk.org/" },
 ]
 provides-extras = ["all", "dev", "export", "imgui", "trame"]
 

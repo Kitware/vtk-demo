@@ -35,9 +35,11 @@ def run_demo(demo_id, args):
     except ModuleNotFoundError as e:
         if (e.name or "").startswith("vtk_demo"):
             raise
+        # trame and export dependencies are installed by default
+        extra = "" if demo.group in ("trame", "export") else f"[{demo.group}]"
         sys.exit(
             f"error: {demo.id} needs extra dependencies ({e}).\n"
-            f'Install them with: pip install "vtk-demo[{demo.group}]"'
+            f'Install them with: pip install "vtk-demo{extra}"'
         )
     # Demos read their options from sys.argv
     sys.argv = [f"vtk-demo run {demo.id}", *args]

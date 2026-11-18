@@ -79,6 +79,12 @@ DEMOS = [
     ),
     Demo(
         "trame",
+        "bearing-assembly",
+        "vtk_demo.apps.trame.bearing_assembly",
+        "Translucent ball bearing in VTK.wasm, toggling WebGL weighted blend / WebGPU deep framebuffer",
+    ),
+    Demo(
+        "trame",
         "glyph",
         "vtk_demo.apps.trame.glyph",
         "Voxel island of 43k objects drawn with GPU instancing (vtkGlyph3DMapper)",

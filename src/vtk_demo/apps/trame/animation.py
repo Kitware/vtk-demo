@@ -19,6 +19,7 @@ from trame.ui.vuetify3 import VAppLayout
 from trame.widgets import pyvista as pvw
 from trame.widgets import vuetify3 as v3
 
+from vtk_demo import vtk_version
 from vtk_demo.pyvista_adapter import add_scene
 from vtk_demo.scenes import build_wave_scene
 
@@ -161,6 +162,11 @@ class AnimationDemo(TrameApp):
 
 
 def main():
+    vtk_version.check(
+        "trame.animation",
+        vtk_version.VTK_WASM_ARRAY_UPDATES,
+        "with older VTK, VTK.wasm keeps drawing the first frame",
+    )
     AnimationDemo().server.start()
 
 
