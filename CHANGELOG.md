@@ -2,6 +2,17 @@
 
 <!-- version list -->
 
+## v0.3.0 (2026-11-18)
+
+### Features
+
+- Add bearing-assembly demo, VTK version checks, trame by default
+  ([`f453036`](https://github.com/Kitware/vtk-demo/commit/f4530362e6d11b8c2a91a2cb52aa59fcd55e5958))
+
+- Add medical datasets and volume-rendering demo
+  ([`204d161`](https://github.com/Kitware/vtk-demo/commit/204d161c67c78caa5a57914d74914b254731f4c7))
+
+
 ## v0.2.0 (2026-11-18)
 
 ### Features
