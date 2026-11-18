@@ -99,21 +99,28 @@ vtk-demo run trame.glyph --webgpu   # WebGPU in the browser and on the server
 vtk-demo run trame.galaxy --help
 ```
 
-Without installing anything, [uv](https://docs.astral.sh/uv/) can run any demo
-against a VTK of your choice, here a nightly from
-[wheels.vtk.org](https://wheels.vtk.org) (`-p 0` picks a free port):
-
-```bash
-uvx --with "vtk==9.7.20261101.dev0" --index-url https://wheels.vtk.org vtk-demo run trame.animation -p 0
-```
+Without installing anything, [uv](https://docs.astral.sh/uv/) runs any demo
+with `uvx`: every demo below comes with its command. Add `-p 0` to have trame
+pick a free port, or any of the demo options (`--webgpu`, `--help`…). The
+demos that need a VTK nightly get one from [wheels.vtk.org](https://wheels.vtk.org).
 
 Demos are grouped by UI toolkit, under `vtk_demo.apps`:
 
-- **trame**: `contour`, `volume-rendering`, `live-processing`, `galaxy`,
-  `animation`, `pbr`, `pbr-legacy`, `transparency`, `asteroid-impact`,
-  `bearing-assembly`, `glyph`
-- **export**: `bunny-html`, a self-contained VTK.wasm HTML page
-- **imgui**: `contour`, the trame contour demo as a native desktop window
+| Demo | What it shows | Run it with uv |
+| --- | --- | --- |
+| `trame.contour` | Isosurface of a CT scan, filtered on the server | `uvx vtk-demo run trame.contour` |
+| `trame.volume-rendering` | Chest CT ray cast with 3D Slicer presets | `uvx vtk-demo run trame.volume-rendering` |
+| `trame.live-processing` | FEA bracket thresholded by stress, filtered on the server | `uvx vtk-demo run trame.live-processing` |
+| `trame.galaxy` | Tens of millions of points with VTK.wasm 64-bit | `uvx vtk-demo run trame.galaxy` |
+| `trame.animation` | Wave equation stepped in numpy, streamed live | `uvx --with "vtk==9.7.20261101.dev0" --index-url https://wheels.vtk.org vtk-demo run trame.animation` |
+| `trame.pbr` | PBR materials and image based lighting | `uvx vtk-demo run trame.pbr` |
+| `trame.pbr-legacy` | The same PBR scene with vtk.js | `uvx vtk-demo run trame.pbr-legacy` |
+| `trame.transparency` | Depth peeling stress test | `uvx vtk-demo run trame.transparency` |
+| `trame.asteroid-impact` | WebGL weighted blend vs. WebGPU deep framebuffer | `uvx --with "vtk==9.7.20261101.dev0" --index-url https://wheels.vtk.org vtk-demo run trame.asteroid-impact` |
+| `trame.bearing-assembly` | The same comparison, as a WebGL / WebGPU toggle | `uvx --with "vtk==9.7.20261101.dev0" --index-url https://wheels.vtk.org vtk-demo run trame.bearing-assembly` |
+| `trame.glyph` | 43k object voxel island, GPU instancing | `uvx vtk-demo run trame.glyph` |
+| `export.bunny-html` | Self-contained VTK.wasm HTML page, written to `exports/` | `uvx vtk-demo run export.bunny-html` |
+| `imgui.contour` | The contour demo in a native desktop window (Python 3.11+) | `uvx --from "vtk-demo[imgui]" vtk-demo run imgui.contour` |
 
 Every demo is also a runnable module, e.g. `python -m vtk_demo.apps.trame.glyph`.
 
@@ -132,6 +139,8 @@ its scene bundle (`.mrb`) by `vtk_demo.io.nrrd`.
 ```bash
 vtk-demo run trame.volume-rendering            # VTK.wasm on WebGL 2
 vtk-demo run trame.volume-rendering --webgpu   # WebGPU in the browser
+
+uvx vtk-demo run trame.volume-rendering        # without installing anything
 ```
 
 The footer picks a preset (CT-Chest-Contrast-Enhanced, CT-Bone, CT-Muscle…),
