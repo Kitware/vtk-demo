@@ -142,9 +142,7 @@ class AsteroidImpact(TrameApp):
     @staticmethod
     def _layer_actor(layer):
         file_name = layer["url"].split("/")[-1]
-        reader = vtkXMLPolyDataReader(
-            file_name=DATASET.path / file_name
-        )
+        reader = vtkXMLPolyDataReader(file_name=DATASET.path / file_name)
         mapper = vtkPolyDataMapper(scalar_visibility=False)
         reader >> mapper
         actor = vtkActor(mapper=mapper)
