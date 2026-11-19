@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v0.3.2 (2026-11-19)
+
+### Bug Fixes
+
+- **volume**: Better slider range compute
+  ([`668e4ae`](https://github.com/Kitware/vtk-demo/commit/668e4aede7af68571b4cc77ed0e78127f2bd8457))
+
+
 ## v0.3.1 (2026-11-19)
 
 ### Bug Fixes
