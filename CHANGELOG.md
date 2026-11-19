@@ -2,6 +2,19 @@
 
 <!-- version list -->
 
+## v0.3.1 (2026-11-19)
+
+### Bug Fixes
+
+- **slicer**: Allow dataset selection
+  ([`97ab6b9`](https://github.com/Kitware/vtk-demo/commit/97ab6b99f326b2f0ceb975a2f873305f6ea8958c))
+
+### Documentation
+
+- Update readme to add uvx cmd
+  ([`53984f4`](https://github.com/Kitware/vtk-demo/commit/53984f4cd7433378a285c62c2cb82d3005ab7791))
+
+
 ## v0.3.0 (2026-11-18)
 
 ### Features

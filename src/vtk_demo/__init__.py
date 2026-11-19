@@ -5,4 +5,4 @@
 - ``vtk-demo``: command line launcher for the bundled demos.
 """
 
-__version__ = "0.3.0"
+__version__ = "0.3.1"
