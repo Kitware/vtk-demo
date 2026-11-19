@@ -119,6 +119,7 @@ class VolumeRenderingDemo(TrameApp):
                 presets=list(PRESETS),
                 preset=preset,
                 shift=0,
+                shift_range=self.vr.shift_range,
                 shade=self.vr.shade,
                 dims=" × ".join(str(d) for d in image.GetDimensions()),
             )
@@ -128,7 +129,11 @@ class VolumeRenderingDemo(TrameApp):
     @change("preset", "shift")
     def _on_transfer_function(self, preset, shift, **_):
         self.vr.preset = preset
-        self.vr.shift = float(shift)
+        # The slider covers the volume's intensities, whatever the preset
+        low, high, _ = self.state.shift_range = self.vr.shift_range
+        shift = min(max(float(shift), low), high)
+        self.state.shift = shift
+        self.vr.shift = shift
         self.ctx.view.update_throttle()
 
     @change("shade")
@@ -200,12 +205,15 @@ class VolumeRenderingDemo(TrameApp):
                     density="compact",
                     classes="flex-grow-0",
                 )
-                v4.VLabel(f"Shift: {{{{ shift }}}}{self.unit}", style="width: 8rem;")
+                v4.VLabel(
+                    f"Shift: {{{{ Math.round(shift * 100) / 100 }}}}{self.unit}",
+                    style="width: 9rem;",
+                )
                 v4.VSlider(
                     v_model="shift",
-                    min=-1000,
-                    max=1000,
-                    step=1,
+                    min=("shift_range[0]",),
+                    max=("shift_range[1]",),
+                    step=("shift_range[2]",),
                     hide_details=True,
                     density="compact",
                 )

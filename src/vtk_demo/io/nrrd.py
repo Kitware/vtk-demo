@@ -72,6 +72,12 @@ def read_nrrd(content):
             [float(v) for v in fields.get("spacings", "1 1 1").split()]
         )
         origin = [float(v) for v in fields.get("axis mins", "0 0 0").split()]
+    if np.linalg.det(directions) < 0:
+        # A mirrored orientation, which the GPU volume ray caster renders as
+        # noise: store the i axis backward instead, same voxels in space.
+        values = values.reshape(sizes[::-1])[:, :, ::-1].ravel()
+        origin = np.asarray(origin) + (sizes[0] - 1) * directions[0]
+        directions[0] = -directions[0]
     spacing = np.linalg.norm(directions, axis=1)
     image = vtkImageData(dimensions=sizes, spacing=spacing, origin=origin)
     image.SetDirectionMatrix((directions / spacing[:, None]).T.ravel())

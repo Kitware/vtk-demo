@@ -93,3 +93,35 @@ def test_scalar_volumes():
     for excluded in ("ct-cardio-seq", "dwi-volume-scene", "left-atrium-endo"):
         assert excluded not in names
     assert "ct-cardio-multivolume" not in names  # zip archive
+
+
+def test_read_nrrd_mirrored_orientation():
+    """A left-handed orientation is made right-handed, voxels staying in place."""
+    nx, ny, nz = 4, 3, 2
+    values = np.arange(nx * ny * nz, dtype="<f4").reshape(nz, ny, nx)
+    directions = np.array([(0, 0.75, 0), (0, 0, -0.75), (0.75, 0, 0)])  # det < 0
+    origin = np.array([-77.625, -107.625, 119.625])
+    header = {
+        "type": "float",
+        "dimension": 3,
+        "sizes": f"{nx} {ny} {nz}",
+        "space directions": " ".join(f"({a},{b},{c})" for a, b, c in directions),
+        "endian": "little",
+        "encoding": "gzip",
+        "space origin": "({},{},{})".format(*origin),
+    }
+    image = read_nrrd(_nrrd(values, header))
+    matrix = np.array(
+        [
+            image.GetDirectionMatrix().GetElement(r, c)
+            for r in range(3)
+            for c in range(3)
+        ]
+    )
+    assert np.linalg.det(matrix.reshape(3, 3)) > 0
+    scalars = image.point_data.GetScalars()
+    for k, j, i in np.ndindex(nz, ny, nx):
+        expected = origin + i * directions[0] + j * directions[1] + k * directions[2]
+        point_id = image.FindPoint(expected)
+        assert scalars.GetValue(point_id) == values[k, j, i]
+        assert np.allclose(image.GetPoint(point_id), expected)

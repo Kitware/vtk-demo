@@ -139,3 +139,46 @@ def test_wave(renderer):
 def test_benchmark(renderer):
     assert scenes.build_sphere_actors(renderer, 9) > 0
     assert n_actors(renderer) == 9
+
+
+def _volume(values):
+    from vtkmodules.util.numpy_support import numpy_to_vtk
+    from vtkmodules.vtkCommonDataModel import vtkImageData
+
+    image = vtkImageData(dimensions=values.shape[::-1])
+    image.point_data.SetScalars(numpy_to_vtk(values.ravel(), deep=True))
+    return image
+
+
+def test_volume_rendering_shift_range():
+    from vtk_demo.scenes.volume_rendering import VolumeRendering, opacity_start
+
+    assert opacity_start("CT-Lung") == -600
+    assert opacity_start("MR-Default") == 20
+
+    # CT: padding at -3024 is ignored, air to bone sets the range
+    rng = np.random.default_rng(0)
+    ct = rng.integers(-1000, 1500, (20, 20, 20)).astype(np.int16)
+    ct[:5] = -3024
+    vr = VolumeRendering(_volume(ct), "CT-Bone")
+    low, high = vr.tissue_range
+    assert -1000 <= low < -950
+    assert 1450 < high < 1500
+    lo, hi, step = vr.shift_range
+    assert step == 1
+    assert lo == pytest.approx(low - opacity_start("CT-Bone"), abs=1)
+    assert hi == pytest.approx(high - opacity_start("CT-Bone"), abs=1)
+
+    # MRI with large intensities: coarser steps, 0 always reachable
+    mri = rng.integers(0, 20000, (20, 20, 20)).astype(np.uint16)
+    vr = VolumeRendering(_volume(mri), "CT-Lung")
+    lo, hi, step = vr.shift_range
+    assert step == 10
+    assert lo == 0
+    assert hi > 20000
+
+    # Small float range: fine steps
+    vr = VolumeRendering(_volume(rng.random((20, 20, 20), np.float32)), "MR-Default")
+    lo, hi, step = vr.shift_range
+    assert step < 0.01
+    assert lo <= 0 <= hi

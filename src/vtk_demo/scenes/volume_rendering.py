@@ -7,8 +7,12 @@ Shifting the transfer functions fine-tunes what shows up (Slicer's "Shift").
 MRI intensities have no such unit, so the MR presets usually need a shift.
 """
 
+from itertools import pairwise
+
 import numpy as np
 import vtkmodules.vtkRenderingVolumeOpenGL2  # noqa: F401  (GPU mapper override)
+from vtkmodules.util import numpy_support
+from vtkmodules.vtkCommonCore import VTK_DOUBLE, VTK_FLOAT
 from vtkmodules.vtkCommonDataModel import vtkPiecewiseFunction
 from vtkmodules.vtkRenderingCore import (
     vtkColorTransferFunction,
@@ -214,12 +218,47 @@ DEFAULT_PRESET = "CT-Chest-Contrast-Enhanced"
 DEFAULT_MR_PRESET = "MR-Default"
 
 
+def opacity_start(preset):
+    """Value where the opacity of ``preset`` starts to rise: where tissue shows up."""
+    points = PRESETS[preset]["opacity"]
+    for (x, _), (_, alpha) in pairwise(points):
+        if alpha > 0:
+            return x
+    return points[0][0]
+
+
+def tissue_range(image):
+    """Robust (low, high) scalar range of ``image``.
+
+    The 1st and 99.9th percentiles, ignoring the voxels at the minimum
+    value: background or padding outside the scanner field of view (-3024 HU
+    on CT), which would otherwise stretch the range.
+    """
+    values = numpy_support.vtk_to_numpy(image.point_data.GetScalars()).ravel()
+    values = values[:: max(1, values.size // 1_000_000)]  # a sample is enough
+    foreground = values[values > values.min()]
+    if foreground.size == 0:
+        return float(values.min()), float(values.max())
+    low, high = np.percentile(foreground, (1, 99.9))
+    return float(low), float(high)
+
+
+def _nice_step(span):
+    """A power of ten giving about 500 to 5000 slider steps over ``span``."""
+    return 10.0 ** np.floor(np.log10(span / 500)) if span > 0 else 1.0
+
+
 class VolumeRendering:
     """A ``vtkVolume`` of ``image`` whose preset, shift and shading can be changed live."""
 
     def __init__(self, image, preset=DEFAULT_PRESET, shift=0.0):
         self.image = image
         self.data_range = list(image.point_data.GetScalars().GetRange())
+        self.tissue_range = tissue_range(image)
+        self.integer = image.point_data.GetScalars().GetDataType() not in (
+            VTK_FLOAT,
+            VTK_DOUBLE,
+        )
         self.mapper = vtkGPUVolumeRayCastMapper()
         self.mapper.SetInputDataObject(image)
         self.color = vtkColorTransferFunction()
@@ -251,6 +290,22 @@ class VolumeRendering:
     def shift(self, value):
         self._shift = value
         self._apply()
+
+    @property
+    def shift_range(self):
+        """(min, max, step) of the shift for the current preset.
+
+        Wide enough to move where the preset's opacity starts anywhere over
+        the tissue range of the volume, and always including 0.
+        """
+        start = opacity_start(self._preset)
+        low, high = self.tissue_range
+        step = _nice_step(high - low)
+        if self.integer:
+            step = max(step, 1.0)
+        lo = min(0.0, np.floor((low - start) / step) * step)
+        hi = max(0.0, np.ceil((high - start) / step) * step)
+        return float(lo), float(hi), float(step)
 
     @property
     def shade(self):
