@@ -1,9 +1,10 @@
-"""GPU ray cast volume rendering of a CT scan, with 3D Slicer's presets.
+"""GPU ray cast volume rendering of a CT or MRI scan, with 3D Slicer's presets.
 
 CT voxels are in Hounsfield units, so a preset made for one CT works on any
 other: no threshold to compute, as explained in
 https://discourse.vtk.org/t/how-show-the-bone-of-a-serial-dicom-files/4802.
 Shifting the transfer functions fine-tunes what shows up (Slicer's "Shift").
+MRI intensities have no such unit, so the MR presets usually need a shift.
 """
 
 import numpy as np
@@ -19,7 +20,7 @@ from vtkmodules.vtkRenderingVolume import vtkGPUVolumeRayCastMapper
 from .core import set_camera
 
 # From Slicer's Modules/Loadable/VolumeRendering/Resources/presets.xml:
-# opacity is (x, opacity) points and color (x, r, g, b) points, x in HU
+# opacity is (x, opacity) points and color (x, r, g, b) points, x in HU for CT
 PRESETS = {
     "CT-Chest-Contrast-Enhanced": dict(
         opacity=(
@@ -145,8 +146,72 @@ PRESETS = {
         specular=0.0,
         specular_power=1,
     ),
+    "MR-Default": dict(
+        opacity=(
+            (0, 0),
+            (20, 0),
+            (40, 0.15),
+            (120, 0.3),
+            (220, 0.375),
+            (1024, 0.5),
+        ),
+        color=(
+            (0, 0, 0, 0),
+            (20, 0.168627, 0, 0),
+            (40, 0.403922, 0.145098, 0.0784314),
+            (120, 0.780392, 0.607843, 0.380392),
+            (220, 0.847059, 0.835294, 0.788235),
+            (1024, 1, 1, 1),
+        ),
+        ambient=0.2,
+        diffuse=1.0,
+        specular=0.0,
+        specular_power=1,
+    ),
+    "MR-Angio": dict(
+        opacity=(
+            (-2048, 0),
+            (151.354, 0),
+            (158.279, 0.4375),
+            (190.112, 0.580357),
+            (200.873, 0.732143),
+            (3661, 0.741071),
+        ),
+        color=(
+            (-2048, 0, 0, 0),
+            (151.354, 0, 0, 0),
+            (158.279, 0.74902, 0.376471, 0),
+            (190.112, 1, 0.866667, 0.733333),
+            (200.873, 0.937255, 0.937255, 0.937255),
+            (3661, 1, 1, 1),
+        ),
+        ambient=0.2,
+        diffuse=1.0,
+        specular=0.0,
+        specular_power=1,
+    ),
+    "MR-T2-Brain": dict(
+        opacity=(
+            (0, 0),
+            (36.05, 0),
+            (218.302, 0.171429),
+            (412.406, 1),
+            (641, 1),
+        ),
+        color=(
+            (0, 0, 0, 0),
+            (98.7223, 0.956863, 0.839216, 0.192157),
+            (412.406, 0, 0.592157, 0.807843),
+            (641, 1, 1, 1),
+        ),
+        ambient=0.3,
+        diffuse=0.6,
+        specular=0.5,
+        specular_power=40,
+    ),
 }
 DEFAULT_PRESET = "CT-Chest-Contrast-Enhanced"
+DEFAULT_MR_PRESET = "MR-Default"
 
 
 class VolumeRendering:
@@ -179,7 +244,7 @@ class VolumeRendering:
 
     @property
     def shift(self):
-        """Offset, in Hounsfield units, of every transfer function point."""
+        """Offset, in scalar units (Hounsfield units for CT), of every transfer function point."""
         return self._shift
 
     @shift.setter
@@ -211,7 +276,7 @@ class VolumeRendering:
 
 
 def build_volume_rendering_scene(renderer, image, preset=DEFAULT_PRESET):
-    """Add a volume rendering of the CT ``image``, seen from the front. Returns the VolumeRendering."""
+    """Add a volume rendering of the CT or MRI ``image``, seen from the front. Returns the VolumeRendering."""
     vr = VolumeRendering(image, preset)
     renderer.AddVolume(vr.volume)
     renderer.SetBackground(0.45, 0.47, 0.75)

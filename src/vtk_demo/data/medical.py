@@ -1050,3 +1050,24 @@ _DATASETS = (
 )
 
 DATASETS = {args[0]: _dataset(*args) for args in _DATASETS}
+
+# Not a single 3D scalar volume: multi-component (diffusion) or 4D (time series)
+_NOT_SCALAR_3D = {"diffusion", "dti", "dwi", "tensor", "time-series"}
+
+
+def scalar_volumes():
+    """Names of the datasets holding a 3D scalar image, readable by ``vtk_demo.io.nrrd.read_volume``.
+
+    Plain NRRD files and Slicer scene bundles with an image volume in them,
+    but not the label maps (segmentation only NRRD files).
+    """
+    names = []
+    for name, ds in DATASETS.items():
+        file_name = ds.locations[0].name
+        if not {"image", "volume"} <= ds.tags or ds.tags & _NOT_SCALAR_3D:
+            continue
+        if file_name.endswith(".mrb") or (
+            file_name.endswith(".nrrd") and "segmentation" not in ds.tags
+        ):
+            names.append(name)
+    return names

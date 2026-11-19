@@ -39,7 +39,7 @@ DEMOS = [
         "trame",
         "volume-rendering",
         "vtk_demo.apps.trame.volume_rendering",
-        "Chest CT volume rendering with 3D Slicer presets, ray cast by VTK.wasm",
+        "CT / MRI volume rendering with 3D Slicer presets and data, ray cast by VTK.wasm",
     ),
     Demo(
         "trame",

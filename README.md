@@ -109,7 +109,7 @@ Demos are grouped by UI toolkit, under `vtk_demo.apps`:
 | Demo | What it shows | Run it with uv |
 | --- | --- | --- |
 | `trame.contour` | Isosurface of a CT scan, filtered on the server | `uvx vtk-demo run trame.contour` |
-| `trame.volume-rendering` | Chest CT ray cast with 3D Slicer presets | `uvx vtk-demo run trame.volume-rendering` |
+| `trame.volume-rendering` | Chest CT (or any 3D Slicer CT / MRI sample) ray cast with 3D Slicer presets | `uvx vtk-demo run trame.volume-rendering` |
 | `trame.live-processing` | FEA bracket thresholded by stress, filtered on the server | `uvx vtk-demo run trame.live-processing` |
 | `trame.galaxy` | Tens of millions of points with VTK.wasm 64-bit | `uvx vtk-demo run trame.galaxy` |
 | `trame.animation` | Wave equation stepped in numpy, streamed live | `uvx --with "vtk==9.7.20261101.dev0" --index-url https://wheels.vtk.org vtk-demo run trame.animation` |
@@ -136,16 +136,24 @@ The data is 3D Slicer's CTChest sample (`ct-chest-scene` in
 `vtk_demo.data.medical`, 41 MB, downloaded on first run), read straight from
 its scene bundle (`.mrb`) by `vtk_demo.io.nrrd`.
 
+Any other 3D Slicer sample holding a 3D scalar volume, as a NRRD file or a
+scene bundle, can be rendered instead with `--dataset` and its name.
+`--dataset list` prints them, one per line with download size, modality and
+description. MRI scans start with the MR-Default preset.
+
 ```bash
 vtk-demo run trame.volume-rendering            # VTK.wasm on WebGL 2
 vtk-demo run trame.volume-rendering --webgpu   # WebGPU in the browser
+vtk-demo run trame.volume-rendering --dataset list
+vtk-demo run trame.volume-rendering --dataset cervical-spine-ct
+vtk-demo run trame.volume-rendering --dataset mr-head-scene
 
 uvx vtk-demo run trame.volume-rendering        # without installing anything
 ```
 
-The footer picks a preset (CT-Chest-Contrast-Enhanced, CT-Bone, CT-Muscle…),
-toggles shading and shifts the transfer functions, in Hounsfield units, to
-fine-tune what shows up. The volume is sent to the browser once: these
+The footer picks a preset (CT-Chest-Contrast-Enhanced, CT-Bone, CT-Muscle,
+MR-Default…), toggles shading and shifts the transfer functions (in Hounsfield
+units for CT) to fine-tune what shows up. The volume is sent to the browser once: these
 controls only send the new volume property.
 
 ### Gallery

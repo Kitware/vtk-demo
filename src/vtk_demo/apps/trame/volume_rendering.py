@@ -1,4 +1,4 @@
-"""Volume rendering of a chest CT with 3D Slicer's presets, rendered by VTK.wasm.
+"""Volume rendering of a CT or MRI with 3D Slicer's presets, rendered by VTK.wasm.
 
 The dataset and the CT-Chest-Contrast-Enhanced preset are the ones of
 https://discourse.vtk.org/t/how-show-the-bone-of-a-serial-dicom-files/4802:
@@ -7,9 +7,17 @@ The volume is sent once; changing the preset, its shift or the shading only
 sends the new volume property to the browser, where VTK.wasm ray casts the
 volume.
 
+Any other 3D Slicer sample holding a 3D scalar volume (NRRD file or scene
+bundle) can be rendered instead, by its dataset name;
+``--dataset list`` lists them. MRI scans start with the MR-Default preset.
+
     vtk-demo run trame.volume-rendering             # VTK.wasm on WebGL 2
     vtk-demo run trame.volume-rendering --webgpu    # same thing on WebGPU
+    vtk-demo run trame.volume-rendering --dataset list
+    vtk-demo run trame.volume-rendering --dataset mr-head-scene
 """
+
+import sys
 
 from trame.app import TrameApp
 from trame.decorators import change
@@ -26,8 +34,9 @@ import vtkmodules.vtkInteractionStyle  # noqa: F401 isort:skip
 import vtkmodules.vtkRenderingOpenGL2  # noqa: F401 isort:skip
 
 from vtk_demo import data
-from vtk_demo.io.nrrd import read_mrb_volume
+from vtk_demo.io.nrrd import read_volume
 from vtk_demo.scenes.volume_rendering import (
+    DEFAULT_MR_PRESET,
     DEFAULT_PRESET,
     PRESETS,
     build_volume_rendering_scene,
@@ -36,21 +45,62 @@ from vtk_demo.scenes.volume_rendering import (
 DATASET = "ct-chest-scene"
 
 
+def dataset_listing(names):
+    """One line per dataset: name, download size, modality and description.
+
+    A ``*`` marks the datasets already downloaded.
+    """
+    datasets = sorted((data.get(name) for name in names), key=lambda ds: ds.name)
+    width = max(len(ds.name) for ds in datasets)
+    lines = []
+    for ds in datasets:
+        local = "*" if ds.is_local else " "
+        size = f"{ds.size / 1e6:4.0f} MB" if ds.size else "     ?"
+        modality = "MRI" if "mri" in ds.tags else "CT" if "ct" in ds.tags else ""
+        lines.append(
+            f"{local} {ds.name:<{width}}  {size}  {modality:<3}  {ds.meta.description}"
+        )
+    lines.append("\n(* already downloaded)")
+    return "\n".join(lines)
+
+
 class VolumeRenderingDemo(TrameApp):
     def __init__(self, server=None):
         super().__init__(server, client_type="vue3")
         self.server.cli.add_argument(
             "--webgpu", action="store_true", help="Render with WebGPU in the browser"
         )
+        self.server.cli.add_argument(
+            "--dataset",
+            default=DATASET,
+            metavar="NAME",
+            help=f"3D Slicer sample to render (default: {DATASET}); "
+            "'--dataset list' lists the available ones",
+        )
         args, _ = self.server.cli.parse_known_args()
         self.rendering = "webgpu" if args.webgpu else "webgl"
 
-        dataset = data.get(DATASET)
+        names = data.medical.scalar_volumes()
+        if args.dataset == "list":
+            print(dataset_listing(names))
+            raise SystemExit(0)
+        if args.dataset not in names:
+            print(
+                f"Unknown dataset {args.dataset!r}, choose one of:\n\n"
+                + dataset_listing(names),
+                file=sys.stderr,
+            )
+            raise SystemExit(2)
+
+        dataset = data.get(args.dataset)
         data.print_usage(dataset)
-        image = read_mrb_volume(dataset.path)
+        image = read_volume(dataset.path)
+        self.dataset = dataset.name
+        self.unit = "" if "mri" in dataset.tags else " HU"
+        preset = DEFAULT_MR_PRESET if "mri" in dataset.tags else DEFAULT_PRESET
 
         self.renderer = vtkRenderer()
-        self.vr = build_volume_rendering_scene(self.renderer, image)
+        self.vr = build_volume_rendering_scene(self.renderer, image, preset)
         self.render_window = vtkRenderWindow(off_screen_rendering=True)
         self.render_window.AddRenderer(self.renderer)
         interactor = vtkRenderWindowInteractor(render_window=self.render_window)
@@ -67,7 +117,7 @@ class VolumeRenderingDemo(TrameApp):
         self.state.update(
             dict(
                 presets=list(PRESETS),
-                preset=DEFAULT_PRESET,
+                preset=preset,
                 shift=0,
                 shade=self.vr.shade,
                 dims=" × ".join(str(d) for d in image.GetDimensions()),
@@ -121,7 +171,7 @@ class VolumeRenderingDemo(TrameApp):
                     classes="rounded",
                 )
                 v4.VChip(
-                    f"VTK.wasm · {self.rendering} · {{{{ dims }}}} voxels",
+                    f"{self.dataset} · VTK.wasm · {self.rendering} · {{{{ dims }}}} voxels",
                     style="position: absolute; top: 1rem; right: 1rem;",
                     variant="outlined",
                 )
@@ -150,7 +200,7 @@ class VolumeRenderingDemo(TrameApp):
                     density="compact",
                     classes="flex-grow-0",
                 )
-                v4.VLabel("Shift: {{ shift }} HU", style="width: 8rem;")
+                v4.VLabel(f"Shift: {{{{ shift }}}}{self.unit}", style="width: 8rem;")
                 v4.VSlider(
                     v_model="shift",
                     min=-1000,
